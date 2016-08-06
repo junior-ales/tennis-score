@@ -13,9 +13,9 @@
     "start": "brunch watch --server",
     "test:watch": "watch 'npm run lint && npm run test' app/ spec/ -d"
   },
-  "pre-commit": {
+  "pre-commit": [
     "build:prod"
-  },
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/junior-ales/tennis-score.git"
