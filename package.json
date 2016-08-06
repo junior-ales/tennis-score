@@ -13,6 +13,9 @@
     "start": "brunch watch --server",
     "test:watch": "watch 'npm run lint && npm run test' app/ spec/ -d"
   },
+  "pre-commit": {
+    "build:prod"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/junior-ales/tennis-score.git"
@@ -33,6 +36,7 @@
     "eslint-watch": "^2.1.5",
     "jasmine": "^2.4.1",
     "javascript-brunch": "^2.0.0",
+    "pre-commit": "^1.1.3",
     "sass-brunch": "^2.6.3",
     "uglify-js-brunch": "^2.0.0",
     "watch": "^0.19.1"
