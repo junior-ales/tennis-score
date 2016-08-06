@@ -1,19 +1,4 @@
-# Kickstart Brunch
-
-Personal brunch io kickstarter with javascript, SASS, eslint and jasmine.
-
-## How to use
-
-You gonna need brunch installed globally in order to use the `new` command.
-If you don't like this approach (like me) download this repo and run `npm install`.
-
-#### Using new Command
-
-```
-mkdir [PROJECT DIR]
-cd [PROJECT DIR]
-brunch new --skeleton https://github.com/junior-ales/kickstart-brunch
-```
+# Tennis Score
 
 ## Running
 
@@ -39,4 +24,4 @@ Available via `npm run-script`:
     watch 'npm run lint && npm run test' app/ spec/ -d
 ```
 
-Node `v5.5.0` was used for development but the skeleton was tested with prior version `v4.0.0` with success.
+Node `v6.2.1` was used for development
