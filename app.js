@@ -21,13 +21,23 @@
     }
   };
 
+  var Player = {
+    init: function(name) {
+      this.name = name;
+      this.score = 0;
+      return this;
+    },
+
+    scored: function() { this.score++; }
+  };
+
   var init = function() {
     var $board = Object.create($Board);
 
     var game = {
-      player1: {name: 'Djokovic', score: 2},
-      player2: {name: 'Nadal', score: 1},
-      gameScore: 'Thirty-Fifteen'
+      player1: Object.create(Player).init('Federer'),
+      player2: Object.create(Player).init('Wawrinka'),
+      gameScore: 'Love-All'
     };
 
     $board.render(game);
