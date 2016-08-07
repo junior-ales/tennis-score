@@ -1,6 +1,8 @@
 $darkest-color: #2C2C2C;
 $light-color: #F4F4F4;
 $medium-color: #95989A;
+$danger-color: #DEB5B5;
+$success-color: #B5DEB8;
 
 body {
     background-color: $light-color;
@@ -28,16 +30,29 @@ body {
     text-align: center;
 
     & > .action-btn {
-        width: 55%;
+        height: 2em;
+        width: 2em;
         font-size: 1em;
         border: 1px solid $medium-color;
         border-radius: 50%;
-        padding: .5em;
-        color: white;
+        padding-bottom: 5px;
         cursor: pointer;
+        box-shadow: 1px 1px 1px $medium-color;
+        opacity: .8;
 
-        &.add { background-color: #B5DEB8; }
-        &.reset { background-color: #DEB5B5; }
+        &:active { box-shadow: none; }
+        &:focus { outline: none; }
+        &:hover { opacity: 1; }
+
+        &.add {
+            color: darken($success-color, 40%);
+            background-color: $success-color;
+        }
+
+        &.reset {
+            color: darken($danger-color, 40%);
+            background-color: $danger-color;
+        }
     }
 }
 
