@@ -1,25 +1,56 @@
 (function() {
-  var $Board = {
-    player1: {
-      name: document.querySelector('[data-player1-name]'),
-      score: document.querySelector('[data-player1-score]')
-    },
+  var $Board = (function() {
+    var DEFAULT_DOM_ELEMS = {
+      $p1Name: document.querySelector('[data-player1-name]'),
+      $p2Name: document.querySelector('[data-player2-name]'),
+      $p1Score: document.querySelector('[data-player1-score]'),
+      $p2Score: document.querySelector('[data-player2-score]'),
+      $p1AddScore: document.querySelector('[data-player1-add-score]'),
+      $p2AddScore: document.querySelector('[data-player2-add-score]'),
+      $gameScore: document.querySelector('[data-parsed-score]'),
+      $resetScore: document.querySelector('[data-score-reset]')
+    };
 
-    player2: {
-      name: document.querySelector('[data-player2-name]'),
-      score: document.querySelector('[data-player2-score]')
-    },
+    return {
+      init: function(game, domElems) {
+        this.game = game;
+        this.domElems = domElems || DEFAULT_DOM_ELEMS;
 
-    gameScore: document.querySelector('[data-parsed-score]'),
+        this.bindActions();
+        this.render();
+      },
 
-    render: function(game) {
-      this.player1.name.textContent = game.player1.name;
-      this.player1.score.textContent = game.player1.score;
-      this.player2.name.textContent = game.player2.name;
-      this.player2.score.textContent = game.player2.score;
-      this.gameScore.textContent = game.gameScore;
-    }
-  };
+      p1Scored: function() {
+        this.game.player1.scored();
+        this.render();
+      },
+
+      p2Scored: function() {
+        this.game.player2.scored();
+        this.render();
+      },
+
+      resetScore: function() {
+        this.game.player1.score = 0;
+        this.game.player2.score = 0;
+        this.render();
+      },
+
+      bindActions: function() {
+        this.domElems.$p1AddScore.addEventListener('click', this.p1Scored.bind(this));
+        this.domElems.$p2AddScore.addEventListener('click', this.p2Scored.bind(this));
+        this.domElems.$resetScore.addEventListener('click', this.resetScore.bind(this));
+      },
+
+      render: function() {
+        this.domElems.$p1Name.textContent = this.game.player1.name;
+        this.domElems.$p1Score.textContent = this.game.player1.score;
+        this.domElems.$p2Name.textContent = this.game.player2.name;
+        this.domElems.$p2Score.textContent = this.game.player2.score;
+        this.domElems.$gameScore.textContent = this.game.getScore();
+      }
+    };
+  })();
 
   var Player = {
     init: function(name) {
@@ -28,19 +59,51 @@
       return this;
     },
 
-    scored: function() { this.score++; }
+    scored: function() {
+      this.score++;
+    }
   };
 
-  var init = function() {
-    var $board = Object.create($Board);
+  var Game = (function() {
+    var DRAW_SCORES = ['Love-All', 'Fifteen-All', 'Thirty-All'];
+    var SCORES = ['Love', 'Fifteen', 'Thirty', 'Forty'];
 
-    var game = {
-      player1: Object.create(Player).init('Federer'),
-      player2: Object.create(Player).init('Wawrinka'),
-      gameScore: 'Love-All'
+    return {
+      init: function(player1name, player2name) {
+        this.player1 = Object.create(Player).init(player1name);
+        this.player2 = Object.create(Player).init(player2name);
+        return this;
+      },
+
+      wonPoint: function(playerName) {
+        if (this.player1.name === playerName) this.player1.scored();
+        if (this.player2.name === playerName) this.player2.scored();
+      },
+
+      getScore: function() {
+        var scoreDiff = this.player1.score - this.player2.score;
+
+        var isDraw = scoreDiff === 0;
+        if (isDraw) {
+          return DRAW_SCORES[this.player1.score] || 'Deuce';
+        }
+
+        var isHighScore = this.player1.score > 3 || this.player2.score > 3;
+        if (isHighScore) {
+          if (scoreDiff ===  1) return 'Advantage ' + this.player1.name;
+          if (scoreDiff === -1) return 'Advantage ' + this.player2.name;
+
+          return 'Win for ' + (scoreDiff > 1 ? this.player1.name : this.player2.name);
+        }
+
+        return SCORES[this.player1.score] + '-' + SCORES[this.player2.score];
+      }
     };
+  })();
 
-    $board.render(game);
+  var init = function() {
+    var game = Object.create(Game).init('Serena', 'Kerber');
+    Object.create($Board).init(game);
   };
 
   document.addEventListener('DOMContentLoaded', init);
