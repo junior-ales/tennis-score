@@ -1,5 +1,5 @@
-const init = function() {
-  const $page = Object.freeze({
+var init = function() {
+  var $page = Object.freeze({
     player1: {
       name: document.querySelector('[data-player1-name]'),
       score: document.querySelector('[data-player1-score]')
@@ -10,7 +10,7 @@ const init = function() {
     },
     gameScore: document.querySelector('[data-parsed-score]'),
 
-    render(game) {
+    render: function(game) {
       this.player1.name.textContent = game.player1.name;
       this.player1.score.textContent = game.player1.score;
       this.player2.name.textContent = game.player2.name;
@@ -19,7 +19,7 @@ const init = function() {
     }
   });
 
-  const game = {
+  var game = {
     player1: {
       name: 'Djokovic',
       score: 2
