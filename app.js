@@ -1,10 +1,10 @@
-const player1Name = 'Player 1';
-const player2Name = 'Player 2';
-let player1Score = 0;
-let player2Score = 0;
+var player1Name = 'Player 1';
+var player2Name = 'Player 2';
+var player1Score = 0;
+var player2Score = 0;
 
-const getScore = function() {
-  let s;
+var getScore = function() {
+  var s;
   if ((player1Score < 4 && player2Score < 4) && (player1Score + player2Score < 6)) {
     var p = ['Love', 'Fifteen', 'Thirty', 'Forty'];
     s = p[player1Score];
@@ -23,19 +23,19 @@ document.querySelector('[data-player2-name]').textContent = player2Name;
 document.querySelector('[data-player2-score]').textContent = player2Score;
 document.querySelector('[data-parsed-score]').textContent = getScore();
 
-document.querySelector('[data-player1-add-score]').addEventListener('click', () => {
+document.querySelector('[data-player1-add-score]').addEventListener('click', function () {
   player1Score++;
   document.querySelector('[data-parsed-score]').textContent = getScore();
   document.querySelector('[data-player1-score]').textContent = player1Score;
 });
 
-document.querySelector('[data-player2-add-score]').addEventListener('click', () => {
+document.querySelector('[data-player2-add-score]').addEventListener('click', function () {
   player2Score++;
   document.querySelector('[data-parsed-score]').textContent = getScore();
   document.querySelector('[data-player2-score]').textContent = player2Score;
 });
 
-document.querySelector('[data-score-reset]').addEventListener('click', () => {
+document.querySelector('[data-score-reset]').addEventListener('click', function () {
   player1Score = 0;
   player2Score = 0;
 
