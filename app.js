@@ -8,7 +8,8 @@
       $p1AddScore: document.querySelector('[data-player1-add-score]'),
       $p2AddScore: document.querySelector('[data-player2-add-score]'),
       $gameScore: document.querySelector('[data-parsed-score]'),
-      $resetScore: document.querySelector('[data-score-reset]')
+      $resetScore: document.querySelector('[data-score-reset]'),
+      resetScore: function() { document.location.reload(); }
     };
 
     return {
@@ -30,16 +31,10 @@
         this.render();
       },
 
-      resetScore: function() {
-        this.game.player1.score = 0;
-        this.game.player2.score = 0;
-        this.render();
-      },
-
       bindActions: function() {
         this.domElems.$p1AddScore.addEventListener('click', this.p1Scored.bind(this));
         this.domElems.$p2AddScore.addEventListener('click', this.p2Scored.bind(this));
-        this.domElems.$resetScore.addEventListener('click', this.resetScore.bind(this));
+        this.domElems.$resetScore.addEventListener('click', this.domElems.resetScore);
       },
 
       render: function() {
