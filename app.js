@@ -1,35 +1,41 @@
-var $page = Object.freeze({
-  player1: {
-    name: document.querySelector('[data-player1-name]'),
-    score: document.querySelector('[data-player1-score]')
-  },
-  player2: {
-    name: document.querySelector('[data-player2-name]'),
-    score: document.querySelector('[data-player2-score]')
-  },
-  gameScore: document.querySelector('[data-parsed-score]'),
+var player1Name = 'Player 1';
+var player2Name = 'Player 2';
+var player1Score = 0;
+var player2Score = 0;
 
-  render: function(game) {
-    this.player1.name.textContent = game.player1.name;
-    this.player1.score.textContent = game.player1.score;
-    this.player2.name.textContent = game.player2.name;
-    this.player2.score.textContent = game.player2.score;
-    this.gameScore.textContent = game.gameScore;
+var getScore = function() {
+  var s;
+  if ((player1Score < 4 && player2Score < 4) && (player1Score + player2Score < 6)) {
+    var p = ['Love', 'Fifteen', 'Thirty', 'Forty'];
+    s = p[player1Score];
+    return (player1Score === player2Score) ? s + '-All' : s + '-' + p[player2Score];
+  } else {
+    if (player1Score === player2Score)
+      return 'Deuce';
+    s = player1Score > player2Score ? player1Name : player2Name;
+    return ((player1Score - player2Score) * (player1Score - player2Score) === 1) ? 'Advantage ' + s : 'Win for ' + s;
   }
-});
-
-var game = {
-  player1: {
-    name: 'Djokovic',
-    score: 2
-  },
-  player2: {
-    name: 'Nadal',
-    score: 1
-  },
-  gameScore: 'Thirty-Fifteen'
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-  $page.render(game);
+document.querySelector('[data-player1-name]').textContent = player1Name;
+document.querySelector('[data-player1-score]').textContent = player1Score;
+document.querySelector('[data-player2-name]').textContent = player2Name;
+document.querySelector('[data-player2-score]').textContent = player2Score;
+document.querySelector('[data-parsed-score]').textContent = getScore();
+
+document.querySelector('[data-player1-add-score]').addEventListener('click', function () {
+  player1Score++;
+  document.querySelector('[data-parsed-score]').textContent = getScore();
+  document.querySelector('[data-player1-score]').textContent = player1Score;
+});
+
+document.querySelector('[data-player2-add-score]').addEventListener('click', function () {
+  player2Score++;
+  document.querySelector('[data-parsed-score]').textContent = getScore();
+  document.querySelector('[data-player2-score]').textContent = player2Score;
+});
+
+// Score reset is not part of the tennis score kata
+document.querySelector('[data-score-reset]').addEventListener('click', function () {
+  document.location.reload();
 });
