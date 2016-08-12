@@ -64,42 +64,39 @@
     }
   };
 
-  var Game = (function() {
-    var DRAW_SCORES = ['Love-All', 'Fifteen-All', 'Thirty-All'];
-    var SCORES = ['Love', 'Fifteen', 'Thirty', 'Forty'];
+  var Game = {
+    init: function(player1name, player2name) {
+      this.player1 = Object.create(Player).init(player1name);
+      this.player2 = Object.create(Player).init(player2name);
+      return this;
+    },
 
-    return {
-      init: function(player1name, player2name) {
-        this.player1 = Object.create(Player).init(player1name);
-        this.player2 = Object.create(Player).init(player2name);
-        return this;
-      },
+    wonPoint: function(playerName) {
+      if (this.player1.name === playerName) this.player1.scored();
+      if (this.player2.name === playerName) this.player2.scored();
+    },
 
-      wonPoint: function(playerName) {
-        if (this.player1.name === playerName) this.player1.scored();
-        if (this.player2.name === playerName) this.player2.scored();
-      },
+    getScore: function() {
+      var SCORES = ['Love', 'Fifteen', 'Thirty', 'Forty'];
+      var DRAW_SCORES = ['Love-All', 'Fifteen-All', 'Thirty-All'];
+      var scoreDiff = this.player1.score - this.player2.score;
 
-      getScore: function() {
-        var scoreDiff = this.player1.score - this.player2.score;
-
-        var isDraw = scoreDiff === 0;
-        if (isDraw) {
-          return DRAW_SCORES[this.player1.score] || 'Deuce';
-        }
-
-        var isHighScore = this.player1.score > 3 || this.player2.score > 3;
-        if (isHighScore) {
-          if (scoreDiff ===  1) return 'Advantage ' + this.player1.name;
-          if (scoreDiff === -1) return 'Advantage ' + this.player2.name;
-
-          return 'Win for ' + (scoreDiff > 1 ? this.player1.name : this.player2.name);
-        }
-
-        return SCORES[this.player1.score] + '-' + SCORES[this.player2.score];
+      var isDraw = scoreDiff === 0;
+      if (isDraw) {
+        return DRAW_SCORES[this.player1.score] || 'Deuce';
       }
-    };
-  })();
+
+      var isHighScore = this.player1.score > 3 || this.player2.score > 3;
+      if (isHighScore) {
+        if (scoreDiff ===  1) return 'Advantage ' + this.player1.name;
+        if (scoreDiff === -1) return 'Advantage ' + this.player2.name;
+
+        return 'Win for ' + (scoreDiff > 1 ? this.player1.name : this.player2.name);
+      }
+
+      return SCORES[this.player1.score] + '-' + SCORES[this.player2.score];
+    }
+  };
 
   var init = function() {
     var game = Object.create(Game).init('Serena', 'Kerber');
