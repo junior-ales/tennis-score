@@ -39,7 +39,7 @@
     };
 
     var publicApi = {
-      init: function(game, domElems) {
+      render: function(game, domElems) {
         _game = game;
         _domElems = domElems || DEFAULT_DOM_ELEMS;
 
@@ -123,7 +123,7 @@
 
   var init = function() {
     var game = Object.create(Game).init('Serena', 'Kerber');
-    Object.create($Board).init(game);
+    Object.create($Board).render(game);
   };
 
   document.addEventListener('DOMContentLoaded', init);
