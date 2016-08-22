@@ -48,26 +48,29 @@ describe('Tennis Score', function() {
   });
 
   describe('Advantage', function() {
-    describe('Player1', function() {
-      for (var i = 4; i < 10; i++) {
-        it('when ' + i + '-' + (i-1), function() {
-          player1Score = i;
-          player2Score = i-1;
+    var advantageScores = {
+      'Player 1 ahead with 4-3': { p1: 4, p2: 3, expected: 'Advantage Player 1' },
+      'Player 1 ahead with 5-4': { p1: 5, p2: 4, expected: 'Advantage Player 1' },
+      'Player 1 ahead with 6-5': { p1: 6, p2: 5, expected: 'Advantage Player 1' },
+      'Player 1 ahead with 7-6': { p1: 7, p2: 6, expected: 'Advantage Player 1' },
+      'Player 1 ahead with 8-7': { p1: 8, p2: 7, expected: 'Advantage Player 1' },
+      'Player 1 ahead with 9-8': { p1: 9, p2: 8, expected: 'Advantage Player 1' },
 
-          expect(getScore()).toBe('Advantage Player 1');
-        });
-      }
-    });
+      'Player 2 ahead with 3-4': { p1: 3, p2: 4, expected: 'Advantage Player 2' },
+      'Player 2 ahead with 4-5': { p1: 4, p2: 5, expected: 'Advantage Player 2' },
+      'Player 2 ahead with 5-6': { p1: 5, p2: 6, expected: 'Advantage Player 2' },
+      'Player 2 ahead with 6-7': { p1: 6, p2: 7, expected: 'Advantage Player 2' },
+      'Player 2 ahead with 7-8': { p1: 7, p2: 8, expected: 'Advantage Player 2' },
+      'Player 2 ahead with 8-9': { p1: 8, p2: 9, expected: 'Advantage Player 2' }
+    };
 
-    describe('Player2', function() {
-      for (var i = 4; i < 10; i++) {
-        it('when ' + (i-1) + '-' + i, function() {
-          player1Score = i-1;
-          player2Score = i;
+    using(advantageScores, function(score, description) {
+      it(description, function() {
+        player1Score = score.p1;
+        player2Score = score.p2;
 
-          expect(getScore()).toBe('Advantage Player 2');
-        });
-      }
+        expect(getScore()).toBe(score.expected);
+      });
     });
   });
 
