@@ -1,6 +1,6 @@
 describe('Tennis Score', function() {
   describe('Lower Scores', function() {
-    describe('Player1 ahead', function() {
+    describe('Player 1 ahead', function() {
       it('should be fifteen-love when 1-0', function() {
         player1Score = 1;
         player2Score = 0;
@@ -23,7 +23,7 @@ describe('Tennis Score', function() {
       });
     });
 
-    describe('Player2 ahead', function() {
+    describe('Player 2 ahead', function() {
       it('should be love-fifteen when 0-1', function() {
         player1Score = 0;
         player2Score = 1;
@@ -75,7 +75,7 @@ describe('Tennis Score', function() {
   });
 
   describe('Win', function() {
-    describe('Player1', function() {
+    describe('Player 1', function() {
       for (var i = 4; i < 10; i++) {
         it('when ' + i + '-' + (i-2), function() {
           player1Score = i;
@@ -86,7 +86,7 @@ describe('Tennis Score', function() {
       }
     });
 
-    describe('Player2', function() {
+    describe('Player 2', function() {
       for (var i = 4; i < 10; i++) {
         it('when ' + (i-2) + '-' + i, function() {
           player1Score = i-2;
