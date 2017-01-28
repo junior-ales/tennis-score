@@ -24,11 +24,6 @@ var _getScore = function() {
   return SCORES[_player1.getScore()] + '-' + SCORES[_player2.getScore()];
 };
 
-var _wonPoint = function(playerName) {
-  if (_player1.getName() === playerName) _player1.scored();
-  if (_player2.getName() === playerName) _player2.scored();
-};
-
 var _init = function(player1name, player2name) {
   _player1 = Object.create(Player).init(player1name);
   _player2 = Object.create(Player).init(player2name);
@@ -36,7 +31,6 @@ var _init = function(player1name, player2name) {
   this.getPlayer1 = function() { return _player1; };
   this.getPlayer2 = function() { return _player2; };
   this.getScore = _getScore;
-  this.wonPoint = _wonPoint;
 
   return this;
 };
