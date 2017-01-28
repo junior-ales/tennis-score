@@ -4,9 +4,9 @@ var $Board = (function() {
     $p2Name: document.querySelector('[data-player2-name]'),
     $p1Score: document.querySelector('[data-player1-score]'),
     $p2Score: document.querySelector('[data-player2-score]'),
+    $gameScore: document.querySelector('[data-parsed-score]'),
     $p1AddScore: document.querySelector('[data-player1-add-score]'),
     $p2AddScore: document.querySelector('[data-player2-add-score]'),
-    $gameScore: document.querySelector('[data-parsed-score]'),
     $resetScore: document.querySelector('[data-score-reset]'),
     resetScore: function() { document.location.reload(); }
   };
