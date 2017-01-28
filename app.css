@@ -44,10 +44,6 @@ body {
   color: #3d8a43;
   background-color: #B5DEB8; }
 
-.action-box > .action-btn.reset {
-  color: #8a3d3d;
-  background-color: #DEB5B5; }
-
 .player-name {
   order: 2;
   width: 70%;

@@ -35,7 +35,3 @@ document.querySelector('[data-player2-add-score]').addEventListener('click', fun
   document.querySelector('[data-player2-score]').textContent = player2Score;
 });
 
-// Score reset is not part of the tennis score kata
-document.querySelector('[data-score-reset]').addEventListener('click', function () {
-  document.location.reload();
-});
