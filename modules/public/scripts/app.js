@@ -152,8 +152,18 @@ var Game = require('./model/game');
 var $Board = require('./view/board');
 
 document.addEventListener('DOMContentLoaded', function() {
+  var $page = {
+    $p1Name: document.querySelector('[data-player1-name]'),
+    $p2Name: document.querySelector('[data-player2-name]'),
+    $p1Score: document.querySelector('[data-player1-score]'),
+    $p2Score: document.querySelector('[data-player2-score]'),
+    $gameScore: document.querySelector('[data-parsed-score]'),
+    $p1AddScore: document.querySelector('[data-player1-add-score]'),
+    $p2AddScore: document.querySelector('[data-player2-add-score]')
+  };
+
   var game = Object.create(Game).init('Serena', 'Maria Ester');
-  Object.create($Board).render(game);
+  Object.create($Board).init(game, $page);
 });
 
 
@@ -191,62 +201,46 @@ var _wonPoint = function(playerName) {
   if (_player2.getName() === playerName) _player2.scored();
 };
 
-var publicApi = {
-  init: function(player1name, player2name) {
-    _player1 = Object.create(Player).init(player1name);
-    _player2 = Object.create(Player).init(player2name);
+var _init = function(player1name, player2name) {
+  _player1 = Object.create(Player).init(player1name);
+  _player2 = Object.create(Player).init(player2name);
 
-    this.getPlayer1 = function() { return _player1; };
-    this.getPlayer2 = function() { return _player2; };
-    this.getScore = _getScore;
-    this.wonPoint = _wonPoint;
+  this.getPlayer1 = function() { return _player1; };
+  this.getPlayer2 = function() { return _player2; };
+  this.getScore = _getScore;
+  this.wonPoint = _wonPoint;
 
-    return this;
-  }
+  return this;
 };
 
-module.exports = Object.freeze(publicApi);
+module.exports = Object.freeze({ init: _init });
 
 });
 
 require.register("model/player.js", function(exports, require, module) {
-var publicApi = {
-  init: function(name) {
-    var _name = name;
-    var _score = 0;
+var _init = function(name) {
+  var _name = name;
+  var _score = 0;
 
-    this.getName = function() {
-      return _name;
-    };
+  this.getName = function() {
+    return _name;
+  };
 
-    this.getScore = function() {
-      return _score;
-    };
+  this.getScore = function() {
+    return _score;
+  };
 
-    this.scored = function() { _score++; };
+  this.scored = function() { _score++; };
 
-    return this;
-  }
+  return this;
 };
 
-module.exports = Object.freeze(publicApi);
+module.exports = Object.freeze({ init: _init });
 
 });
 
 require.register("view/board.js", function(exports, require, module) {
 var _game, _domElems;
-
-var getDefaultDOMElems = function() {
-  return {
-    $p1Name: document.querySelector('[data-player1-name]'),
-    $p2Name: document.querySelector('[data-player2-name]'),
-    $p1Score: document.querySelector('[data-player1-score]'),
-    $p2Score: document.querySelector('[data-player2-score]'),
-    $gameScore: document.querySelector('[data-parsed-score]'),
-    $p1AddScore: document.querySelector('[data-player1-add-score]'),
-    $p2AddScore: document.querySelector('[data-player2-add-score]')
-  };
-};
 
 var _render = function() {
   _domElems.$p1Name.textContent = _game.getPlayer1().getName();
@@ -271,17 +265,15 @@ var _bindActions = function() {
   _domElems.$p2AddScore.addEventListener('click', _onP2Scored);
 };
 
-var publicApi = {
-  render: function(game, domElems) {
-    _game = game;
-    _domElems = domElems || getDefaultDOMElems();
+var _init = function(game, domElems) {
+  _game = game;
+  _domElems = domElems;
 
-    _bindActions();
-    _render();
-  }
+  _bindActions();
+  _render();
 };
 
-module.exports = Object.freeze(publicApi);
+module.exports = Object.freeze({ init: _init });
 
 });
 

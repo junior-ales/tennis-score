@@ -3,7 +3,7 @@ var Game = require('../../app/model/game');
 
 var _p1Fn, _p2Fn;
 
-var spyDom = {
+var $spyDom = {
   $p1Name: { textContent: '' },
   $p2Name: { textContent: '' },
   $p1Score: { textContent: '' },
@@ -21,24 +21,24 @@ describe('Tennis Score Board', function() {
 
   beforeEach(function() {
     game = Object.create(Game).init(name1, name2);
-    Object.create($Board).render(game, spyDom);
+    Object.create($Board).init(game, $spyDom);
   });
 
   it('should render players names', function() {
-    expect(spyDom.$p1Name.textContent).toBe(name1);
-    expect(spyDom.$p2Name.textContent).toBe(name2);
+    expect($spyDom.$p1Name.textContent).toBe(name1);
+    expect($spyDom.$p2Name.textContent).toBe(name2);
   });
 
   it('should render players initial scores', function() {
-    expect(spyDom.$p1Score.textContent).toBe(INITIAL_SCORE);
-    expect(spyDom.$p2Score.textContent).toBe(INITIAL_SCORE);
+    expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE);
+    expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE);
   });
 
   it('should increments player\'s score when addScore fn is called', function() {
-    spyDom.$p1AddScore.click();
-    spyDom.$p2AddScore.click();
+    $spyDom.$p1AddScore.click();
+    $spyDom.$p2AddScore.click();
 
-    expect(spyDom.$p1Score.textContent).toBe(INITIAL_SCORE + 1);
-    expect(spyDom.$p2Score.textContent).toBe(INITIAL_SCORE + 1);
+    expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE + 1);
+    expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE + 1);
   });
 });

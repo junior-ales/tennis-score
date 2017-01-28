@@ -1,17 +1,5 @@
 var _game, _domElems;
 
-var getDefaultDOMElems = function() {
-  return {
-    $p1Name: document.querySelector('[data-player1-name]'),
-    $p2Name: document.querySelector('[data-player2-name]'),
-    $p1Score: document.querySelector('[data-player1-score]'),
-    $p2Score: document.querySelector('[data-player2-score]'),
-    $gameScore: document.querySelector('[data-parsed-score]'),
-    $p1AddScore: document.querySelector('[data-player1-add-score]'),
-    $p2AddScore: document.querySelector('[data-player2-add-score]')
-  };
-};
-
 var _render = function() {
   _domElems.$p1Name.textContent = _game.getPlayer1().getName();
   _domElems.$p1Score.textContent = _game.getPlayer1().getScore();
@@ -35,14 +23,12 @@ var _bindActions = function() {
   _domElems.$p2AddScore.addEventListener('click', _onP2Scored);
 };
 
-var publicApi = {
-  render: function(game, domElems) {
-    _game = game;
-    _domElems = domElems || getDefaultDOMElems();
+var _init = function(game, domElems) {
+  _game = game;
+  _domElems = domElems;
 
-    _bindActions();
-    _render();
-  }
+  _bindActions();
+  _render();
 };
 
-module.exports = Object.freeze(publicApi);
+module.exports = Object.freeze({ init: _init });

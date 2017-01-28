@@ -29,18 +29,16 @@ var _wonPoint = function(playerName) {
   if (_player2.getName() === playerName) _player2.scored();
 };
 
-var publicApi = {
-  init: function(player1name, player2name) {
-    _player1 = Object.create(Player).init(player1name);
-    _player2 = Object.create(Player).init(player2name);
+var _init = function(player1name, player2name) {
+  _player1 = Object.create(Player).init(player1name);
+  _player2 = Object.create(Player).init(player2name);
 
-    this.getPlayer1 = function() { return _player1; };
-    this.getPlayer2 = function() { return _player2; };
-    this.getScore = _getScore;
-    this.wonPoint = _wonPoint;
+  this.getPlayer1 = function() { return _player1; };
+  this.getPlayer2 = function() { return _player2; };
+  this.getScore = _getScore;
+  this.wonPoint = _wonPoint;
 
-    return this;
-  }
+  return this;
 };
 
-module.exports = Object.freeze(publicApi);
+module.exports = Object.freeze({ init: _init });
