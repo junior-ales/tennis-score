@@ -1,5 +1,6 @@
 *~
 *.swp
 *.log
+*.map
 .DS_Store
 node_modules/
