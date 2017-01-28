@@ -1,5 +1,5 @@
-var player1Name = 'Player 1';
-var player2Name = 'Player 2';
+var player1Name = 'Serena';
+var player2Name = 'Maria Ester';
 var player1Score = 0;
 var player2Score = 0;
 
