@@ -1,6 +1,21 @@
 import Game from '../app/model/game';
 
 describe('Tennis Game', () => {
+  describe('not initialised', () => {
+    it('should expose only init function', () => {
+      const game = Object.create(Game);
+      expect(game.init).toBeDefined();
+      expect(game.getPlayer1).not.toBeDefined();
+      expect(game.getPlayer2).not.toBeDefined();
+      expect(game.getScore).not.toBeDefined();
+    });
+
+    it('should not allow override of initialisation function', () => {
+      const game = Object.create(Game);
+      expect(() => { game.init = 'a value'; }).toThrow();
+    });
+  });
+
   describe('Score', () => {
     let game, p1, p2;
     const p1Name = 'player 1';
@@ -12,11 +27,11 @@ describe('Tennis Game', () => {
       p2 = game.getPlayer2();
     });
 
-    it('should start as love-all (0-0)', () => {
-      expect(game.getScore()).toBe('Love-All');
-    });
-
     describe('Lower Scores', () => {
+      it('should start as love-all (0-0)', () => {
+        expect(game.getScore()).toBe('Love-All');
+      });
+
       describe('Player1 ahead', () => {
         it('should be fifteen-love when 1-0', () => {
           p1.scored();

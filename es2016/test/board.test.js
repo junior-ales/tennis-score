@@ -14,31 +14,45 @@ const $spyDom = {
 };
 
 describe('Tennis Score Board', () => {
-  const INITIAL_SCORE = 0;
-  const name1 = 'player1';
-  const name2 = 'player2';
-  let game;
+  describe('not initialised', () => {
+    it('should expose init function', () => {
+      const board = Object.create(Board);
+      expect(board.init).toBeDefined();
+    });
 
-  beforeEach(() => {
-    game = Object.create(Game).init(name1, name2);
-    Object.create(Board).init(game, $spyDom);
+    it('should not allow override of initialisation function', () => {
+      const board = Object.create(Board);
+      expect(() => { board.init = 'a value'; }).toThrow();
+    });
   });
 
-  it('should render players names', () => {
-    expect($spyDom.$p1Name.textContent).toBe(name1);
-    expect($spyDom.$p2Name.textContent).toBe(name2);
-  });
+  describe('initialised', () => {
+    const INITIAL_SCORE = 0;
+    const name1 = 'player1';
+    const name2 = 'player2';
+    let game;
 
-  it('should render players initial scores', () => {
-    expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE);
-    expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE);
-  });
+    beforeEach(() => {
+      game = Object.create(Game).init(name1, name2);
+      Object.create(Board).init(game, $spyDom);
+    });
 
-  it('should increments player\'s score when addScore fn is called', () => {
-    $spyDom.$p1AddScore.click();
-    $spyDom.$p2AddScore.click();
+    it('should render players names', () => {
+      expect($spyDom.$p1Name.textContent).toBe(name1);
+      expect($spyDom.$p2Name.textContent).toBe(name2);
+    });
 
-    expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE + 1);
-    expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE + 1);
+    it('should render players initial scores', () => {
+      expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE);
+      expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE);
+    });
+
+    it('should increments player\'s score when addScore fn is called', () => {
+      $spyDom.$p1AddScore.click();
+      $spyDom.$p2AddScore.click();
+
+      expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE + 1);
+      expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE + 1);
+    });
   });
 });
