@@ -1,0 +1,23 @@
+{
+  "name": "tennis-score",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "brunch watch --server",
+    "build": "brunch build --production",
+    "test": "jest",
+    "test:cov": "npm run test -- --coverage",
+    "tdd": "npm run test -- --watch"
+  },
+  "author": "@junior_ales",
+  "license": "WTFPL",
+  "devDependencies": {
+    "auto-reload-brunch": "^2.7.1",
+    "brunch": "^2.10.4",
+    "clean-css-brunch": "^2.0.0",
+    "css-brunch": "^2.6.1",
+    "javascript-brunch": "^2.0.0",
+    "jest": "^18.1.0",
+    "uglify-js-brunch": "^2.0.1"
+  }
+}
