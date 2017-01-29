@@ -219,7 +219,6 @@ var Game = Object.freeze({
   init: function init(player1name, player2name) {
     _player1 = Object.create(_player3.default).init(player1name);
     _player2 = Object.create(_player3.default).init(player2name);
-
     this.getPlayer1 = function () {
       return _player1;
     };
@@ -244,11 +243,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var Player = Object.freeze({
   init: function init(name) {
-    var _name = name;
     var _score = 0;
 
     this.getName = function () {
-      return _name;
+      return name;
     };
     this.getScore = function () {
       return _score;

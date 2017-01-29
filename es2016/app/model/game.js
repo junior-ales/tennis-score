@@ -28,7 +28,6 @@ const Game = Object.freeze({
   init(player1name, player2name) {
     _player1 = Object.create(Player).init(player1name);
     _player2 = Object.create(Player).init(player2name);
-
     this.getPlayer1 = () => _player1;
     this.getPlayer2 = () => _player2;
     this.getScore = _getScore;

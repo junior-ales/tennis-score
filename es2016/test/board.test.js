@@ -1,40 +1,40 @@
 import Board from '../app/view/board';
 import Game from '../app/model/game';
 
-var _p1Fn, _p2Fn;
+let _p1Fn, _p2Fn;
 
-var $spyDom = {
+const $spyDom = {
   $p1Name: { textContent: '' },
   $p2Name: { textContent: '' },
   $p1Score: { textContent: '' },
   $p2Score: { textContent: '' },
   $gameScore: { textContent: '' },
-  $p1AddScore: { click: function() { _p1Fn(); }, addEventListener: function(_, fn) { _p1Fn = fn; } },
-  $p2AddScore: { click: function() { _p2Fn(); }, addEventListener: function(_, fn) { _p2Fn = fn; } }
+  $p1AddScore: { click() { _p1Fn(); }, addEventListener(_, fn) { _p1Fn = fn; } },
+  $p2AddScore: { click() { _p2Fn(); }, addEventListener(_, fn) { _p2Fn = fn; } }
 };
 
-describe('Tennis Score Board', function() {
-  var INITIAL_SCORE = 0;
-  var name1 = 'player1';
-  var name2 = 'player2';
-  var game;
+describe('Tennis Score Board', () => {
+  const INITIAL_SCORE = 0;
+  const name1 = 'player1';
+  const name2 = 'player2';
+  let game;
 
-  beforeEach(function() {
+  beforeEach(() => {
     game = Object.create(Game).init(name1, name2);
     Object.create(Board).init(game, $spyDom);
   });
 
-  it('should render players names', function() {
+  it('should render players names', () => {
     expect($spyDom.$p1Name.textContent).toBe(name1);
     expect($spyDom.$p2Name.textContent).toBe(name2);
   });
 
-  it('should render players initial scores', function() {
+  it('should render players initial scores', () => {
     expect($spyDom.$p1Score.textContent).toBe(INITIAL_SCORE);
     expect($spyDom.$p2Score.textContent).toBe(INITIAL_SCORE);
   });
 
-  it('should increments player\'s score when addScore fn is called', function() {
+  it('should increments player\'s score when addScore fn is called', () => {
     $spyDom.$p1AddScore.click();
     $spyDom.$p2AddScore.click();
 
