@@ -4,7 +4,11 @@
     "browser": true,
     "node": true,
     "commonjs": true,
-    "jasmine": true
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
   "extends": "eslint:recommended",
   "rules": {
